@@ -44,3 +44,4 @@ set_target_properties(${PROJ_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 add_subdirectory(googletest)
 add_subdirectory(testsuite)
 #add_library(gtest)
+

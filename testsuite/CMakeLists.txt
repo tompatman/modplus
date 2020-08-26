@@ -36,8 +36,16 @@ target_link_libraries(${PROJ_NAME}
         PUBLIC PocoDataMySQL
         PUBLIC PocoNet
         PUBLIC PocoXML
-#        PUBLIC zmq
+        #        PUBLIC zmq
         PUBLIC modbus
         PUBLIC pthread
         PUBLIC z
         PUBLIC rt)
+
+set(UNIT_TEST ${PROJ_NAME})
+add_custom_command(
+        TARGET ${UNIT_TEST}
+        COMMENT "Run tests"
+        POST_BUILD
+        COMMAND ${UNIT_TEST}
+)
