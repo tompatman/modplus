@@ -2,7 +2,7 @@
 
 modplus is a modbus helper library used in conjunction with libmodbus. It allows for descriptive elements to be easily associated with a modbus register, contains controller and node classes facilitate modbus connection maintenance, updates and register writes.
 
-Project started by Tom Alexander and Greg Morehead
+Project started by Tom Alexander and Greg Morehead.
 
 
 ## Installation
