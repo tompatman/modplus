@@ -43,9 +43,13 @@ target_link_libraries(${PROJ_NAME}
         PUBLIC rt)
 
 set(UNIT_TEST ${PROJ_NAME})
-add_custom_command(
-        TARGET ${UNIT_TEST}
-        COMMENT "Run tests"
-        POST_BUILD
-        COMMAND ${UNIT_TEST}
-)
+
+IF (CMAKE_BUILD_TYPE MATCHES Release)
+    add_custom_command(
+            TARGET ${UNIT_TEST}
+            COMMENT "Run tests"
+            POST_BUILD
+            COMMAND ${UNIT_TEST}
+    )
+ENDIF (CMAKE_BUILD_TYPE MATCHES Release)
+
