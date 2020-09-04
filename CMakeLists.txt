@@ -25,6 +25,8 @@ file(GLOB PROJ_SRC
         "./src/*.cpp"
         )
 
+file(GLOB_RECURSE MODPLUS_INCLUDE_FILES "include/*.h")
+
 include_directories(${CMAKE_SOURCE_DIR}/output/${PROJ_NAME}
         ./
         )
@@ -32,16 +34,26 @@ include_directories(${CMAKE_SOURCE_DIR}/output/${PROJ_NAME}
 set(SOURCE_FILES ${PROJ_SRC})
 
 
-if(NOT CMAKE_DEBUG_POSTFIX)
+if (NOT CMAKE_DEBUG_POSTFIX)
     set(CMAKE_DEBUG_POSTFIX d)
-endif()
+endif ()
 
-add_library(${PROJ_NAME} STATIC ${SOURCE_FILES})
-add_library(${PROJ_NAME}${CMAKE_DEBUG_POSTFIX} ALIAS ${PROJ_NAME})
-set_target_properties(${PROJ_NAME} PROPERTIES LINKER_LANGUAGE CXX)
+add_library(modplus SHARED ${SOURCE_FILES})
+add_library(modplus${CMAKE_DEBUG_POSTFIX} ALIAS modplus)
+set_target_properties(modplus PROPERTIES LINKER_LANGUAGE CXX PUBLIC_HEADER "${MODPLUS_INCLUDE_FILES}")
 
 # Add google test to support unit testing
 add_subdirectory(googletest)
 add_subdirectory(testsuite)
 #add_library(gtest)
 
+#Installation rules
+#Do not want google test to install, disable that here
+SET(INSTALL_GTEST OFF CACHE BOOL "Disabling google test installation" FORCE)
+install(TARGETS modplus
+        LIBRARY
+        DESTINATION lib
+        CONFIGURATIONS Release
+        RUNTIME DESTINATION /usr/local/lib
+        PUBLIC_HEADER
+        DESTINATION /usr/local/include/${PROJ_NAME})
